@@ -1,1 +1,4 @@
 database/
+
+# MacOS Specific File
+.DS_Store
