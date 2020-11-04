@@ -23,9 +23,13 @@ import os
 from pathlib import Path
 
 # Here are our user defined things.
-from source.database-gui import *
-from source.swager-gui import *
+from source.database-gui import dg
+from source.swager-gui import sg
 from source.open-utility.py import *
+
+import source.database-gui as dg
+import source.swage-gui as sg
+import source.open-utility as ou
 
 def main(): 
     # These are the global variables used in this program.
@@ -44,7 +48,7 @@ def main():
     # path to be so idiomatic.
     dbFile = databaseFolder / "database.p"
 
-    openedDB = ""
+    openedDB = ou.loadDatabase(dbFile)
 
     # Cleanup checks.
     #   1. Are all files that were opened, now closed?

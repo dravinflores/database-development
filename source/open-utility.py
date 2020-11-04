@@ -41,7 +41,8 @@ def checkIntegrity():
 
 def loadDatabase(pathToDatabaseStr):
     try:
-        db = pickle.load(pathToDatabaseStr, 'rb')
+        with open(pathToDatabaseStr) as dbFile:
+            db = pickle.load(dbFile)
     except IOError:
         # Clearly the state of the system is off. We need to alert the user
         # and issue an exit.
