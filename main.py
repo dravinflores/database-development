@@ -19,63 +19,32 @@ import pickle
 import sys
 import os
 
-def checkIntegrity():
-    """ Function: checkIntegrity().
+# This is apparently a more friendly way of dealing with paths in Python 3.6+.
+from pathlib import Path
 
-    Purpose: This function checks to see if the root folder is organized in the
-        particular manner required for all other functions. If this function
-        detects that the root folder is organized in some other manner, then
-        it will throw an error.
-
-    Argument(s): This program does not accept any arguments.
-
-    Return Value(s): This program does not return any values.
-
-    Error(s): This program will throw the InvalidRootOrganizationError error.
-
-    Usage: This function is meant to be used at the start of the main program.
-
-    """
-    isInCanonicalForm = True
-
-    if not isInCanonicalForm:
-        print("Throwing an error.")
-
-        # We mean to actually throw an error here. However, we must first
-        # create those custom errors.
-
-
-def loadDatabase(pathToDatabase):
-    try:
-        db = open(pathToDatabase)
-    except IOError:
-        # Clearly the state of the system is off. We need to alert the user
-        # and issue an exit.
-        print("Error. Exiting Now!")
-    else:
-        return db
-
+# Here are our user defined things.
+from source.database-gui import *
+from source.swager-gui import *
+from source.open-utility.py import *
 
 def main(): 
     # These are the global variables used in this program.
     system = platform.system()
 
-    # This is the root folder, which houses all the programs. All other 
-    # programs, data, or relevant files, are located within this folder. We 
-    # expect that this root folder is the folder where this program was ran.
-    rootFolder = os.getcwd()
+    # Just for note, we will assume that we are working in the root folder for
+    # this project. This root folder is likely named "sMDT", however it doesn't
+    # really matter.
+    
+    # Here are all the directories which store files.
+    dataFolder = Path("data")
+    databaseFolder = Path("database")
+    sourceFolder = Path("source")
+    
+    # Here is the path to the database pickle file itself. How nice for the
+    # path to be so idiomatic.
+    dbFile = databaseFolder / "database.p"
 
-    # These are the main directories that house all the other files that this
-    # program will need.
-    dataFolder = os.path.join(rootFolder, "data")
-    databaseFolder = os.path.join(rootFolder, "database")
-    sourceFolder = os.path.join(rootFolder, "source")
-    
-    # Now we wish to load in the database. We have a function that handles
-    # this for us nicely.
-    pathToDatabase = os.path.join(databaseFolder, "database.p")
-    
-    # ... #
+    openedDB = ""
 
     # Cleanup checks.
     #   1. Are all files that were opened, now closed?
